@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">OpenCV Application</string>
+    <string name="show_gray">灰度图</string>
+    <string name="show_raw">原图</string>
+</resources>
