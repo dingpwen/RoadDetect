@@ -111,8 +111,8 @@ void LoadDetect::detect() {
         av_y1 /= number;
         av_x2 /= number;
         av_y2 /= number;
-        Point2f start = Point2f(av_x1, av_y1);
-        Point2f end = Point2f(av_x2, av_y2);
+        Point2f start(av_x1, av_y1);
+        Point2f end(av_x2, av_y2);
         //line(mRgbMat, start, end, Scalar(0,255,0,255), 3);
         float angle = getAngle(mLines);
         //line(mRgbMat, mLines[0].mStart, mLines[0].mEnd, Scalar(0,255,255,255), 6);
@@ -121,7 +121,7 @@ void LoadDetect::detect() {
         //line(mRgbMat, mLines[0].mStart, mLines[0].mEnd, Scalar(255,255,0,255), 6);
         LOGI("Line0 angle-=%.2f", angle);
         if(fabs(angle) < 20) {
-            Line midLine = Line(start, end);
+            Line midLine(start, end);
             mLines.push_back(midLine);
             sort(mLines.begin(), mLines.end(), compareByMidX);
             auto startIter = std::begin(mLines);
@@ -194,9 +194,9 @@ float LoadDetect::getAngle(const vector<Line> &lines) {
 }
 
 vector<Line> LoadDetect::getTwoLines(const vector<Line> &lines, const vector<Line>::iterator &mid) {
-    vector<Line> result = vector<Line>();
-    vector<float> pointX = vector<float>();
-    vector<float> pointY = vector<float>();
+    vector<Line> result;
+    vector<float> pointX;
+    vector<float> pointY;
     for(auto iter = lines.begin(); iter < mid; ++iter) {
         pointX.push_back((*iter).mStart.x);
         pointX.push_back((*iter).mEnd.x);
