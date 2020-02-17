@@ -5,6 +5,7 @@
 #include <opencv2/opencv.hpp>
 #include "LoadDetect.h"
 #include "LaneDetector.h"
+#include "RoadEdge.h"
 
 using namespace cv;
 using namespace std;
@@ -26,8 +27,9 @@ Java_com_stu_opencv_MainActivity_getEdge(
     CV_Assert(pixels);
     if (info.format == ANDROID_BITMAP_FORMAT_RGBA_8888) {
         Mat rgbMat(info.height, info.width, CV_8UC4, pixels);
-        //LoadDetect ld = LoadDetect(rgbMat, info.width, info.height);
-        LaneDetector ld = LaneDetector(rgbMat, info.width, info.height);
+        //LoadDetect ld(rgbMat, info.width, info.height);
+        //LaneDetector ld(rgbMat, info.width, info.height);
+        RoadEdge ld(rgbMat, info.width, info.height);
         ld.setShowGray(showGray);
         ld.detect();
     } else {

@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageView mImg;
     private Button mBtn1, mBtnGray;
     private Button mBtnPre, mBtnNext;
-    private int[] mResId = {R.drawable.road12,R.drawable.road_20,R.drawable.road_21,R.drawable.road_22,R.drawable.road_23,
+    private int[] mResId = {R.drawable.road_25,R.drawable.road_20,R.drawable.road_21,R.drawable.road_22,R.drawable.road_23,
             R.drawable.road_0, R.drawable.road_1, R.drawable.road_2, R.drawable.road_3, R.drawable.road_4,
             R.drawable.road_5, R.drawable.road_6, R.drawable.road_7, R.drawable.road_8, R.drawable.road_9,
             R.drawable.road_10, R.drawable.road_11, R.drawable.road_12, R.drawable.road_13, R.drawable.road_14,

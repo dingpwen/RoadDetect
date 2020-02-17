@@ -18,10 +18,10 @@
 #include "linefinder.h"
 #include "lanemetrics.h"
 
-void LaneDetector::detect() {
+void LaneDetector::processImage(Mat &imgIn) {
     //////reducing the image size////
     Mat image;
-    resize(mRgbMat, image, Size(),1,1, cv::INTER_LINEAR); //to reduce it to quarter of size
+    resize(imgIn, image, Size(),1,1, cv::INTER_LINEAR); //to reduce it to quarter of size
 
     int houghVote = mHoughValue;
     if (image.empty()){
@@ -149,7 +149,7 @@ void LaneDetector::detect() {
     ld.setMinVote(1); //1 original
 
     ld.setShift(image.cols/3);
-    ld.drawDetectedLines(mRgbMat);
+    ld.drawDetectedLines(imgIn);
 
     //to show the number of line segments found in a frame
     //putText(image, stream.str(), Point(10,image.rows-10), 4, 1, Scalar(0,255,255),0);

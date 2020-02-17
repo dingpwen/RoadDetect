@@ -22,7 +22,7 @@ public:
     LaneDetector(Mat rgbMat, int width, int height):LaneDetectorBase(rgbMat, width, height){
         mHoughValue = 150;
     }
-    virtual void detect();
+    virtual void processImage(Mat &img);
 };
 
 
