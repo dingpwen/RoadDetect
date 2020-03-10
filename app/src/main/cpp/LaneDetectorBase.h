@@ -15,12 +15,14 @@ protected:
     int mWidth, mHeight;
     Mat mRgbMat;
     bool mShowGray;
+    int mHoughVote;
 
 public:
     LaneDetectorBase(Mat rgbMat, int width, int height):mRgbMat(rgbMat), mWidth(width), mHeight(height){}
     void setShowGray(bool gray){ mShowGray = gray; }
-    virtual void processImage(Mat &img) = 0;
-    virtual void detect() { processImage(mRgbMat); }
+    void setHoughVote(int hough){ mHoughVote = hough; }
+    virtual int processImage(Mat &img) = 0;
+    virtual int detect() { return processImage(mRgbMat); }
 };
 
 

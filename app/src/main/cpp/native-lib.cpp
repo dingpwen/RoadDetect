@@ -15,10 +15,11 @@ Java_com_stu_opencv_MainActivity_getEdge(
         JNIEnv *env,
         jobject /* this */,
         jobject bitmap,
+        jint hough,
         jboolean showGray) {
     AndroidBitmapInfo info;
     void *pixels;
-    int i;
+    int ret;
 
     CV_Assert(AndroidBitmap_getInfo(env, bitmap, &info) >= 0);
     CV_Assert(info.format == ANDROID_BITMAP_FORMAT_RGBA_8888 ||
@@ -31,13 +32,38 @@ Java_com_stu_opencv_MainActivity_getEdge(
         //LaneDetector ld(rgbMat, info.width, info.height);
         RoadEdge ld(rgbMat, info.width, info.height);
         ld.setShowGray(showGray);
-        ld.detect();
+        ld.setHoughVote(hough);
+        ret = ld.detect();
     } else {
-        Mat temp(info.height, info.width, CV_8UC2, pixels);
-        Mat gray;
-        cvtColor(temp, gray, COLOR_RGB2GRAY);
-        Canny(gray, gray, 125, 225);
-        cvtColor(gray, temp, COLOR_GRAY2RGB);
+        Mat rgbMat(info.height, info.width, CV_8UC2, pixels);
+        RoadEdge ld(rgbMat, info.width, info.height);
+        ld.setShowGray(showGray);
+        ret = ld.detect();
     }
     AndroidBitmap_unlockPixels(env, bitmap);
+    switch(ret) {
+        case 0:
+            LOGI("line0-detect: go straight");
+            break;
+        case 1:
+            LOGI("line0-detect: turn left");
+            break;
+        case 2:
+            LOGI("line0-detect: turn right");
+            break;
+        case 3:
+            LOGI("line0-detect: Obstacles on the left");
+            break;
+        case 4:
+            LOGI("line0-detect: Obstacles on the right");
+            break;
+        case 5:
+            LOGI("line0-detect:  Obstacles on the front");
+            break;
+        case 6:
+            LOGI("line0-detect: crossed road");
+            break;
+        default:
+            break;
+    }
 }

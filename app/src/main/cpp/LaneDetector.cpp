@@ -18,7 +18,7 @@
 #include "linefinder.h"
 #include "lanemetrics.h"
 
-void LaneDetector::processImage(Mat &imgIn) {
+int LaneDetector::processImage(Mat &imgIn) {
     //////reducing the image size////
     Mat image;
     resize(imgIn, image, Size(),1,1, cv::INTER_LINEAR); //to reduce it to quarter of size
@@ -26,7 +26,7 @@ void LaneDetector::processImage(Mat &imgIn) {
     int houghVote = mHoughValue;
     if (image.empty()){
         LOGE("LANEDETECTOR++", "%s", "Cannot access the camera");
-       return;
+       return -1;
     }
 
     Mat gray;
@@ -158,4 +158,5 @@ void LaneDetector::processImage(Mat &imgIn) {
     //Hough Processing ends here
     //resize(image, image, Size(),4,4, cv::INTER_LINEAR);
     //mRgbMat = image.clone();
+    return 0;
 }
